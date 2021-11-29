@@ -12,7 +12,11 @@ class Ostoskori:
         return sum([x.hinta() for x in self.__cart])
 
     def lisaa_tuote(self, lisattava: Tuote):
-        self.__cart.append(Ostos(lisattava))
+        try:
+            index = self.__cart.index(lisattava)
+            self.__cart[index].muuta_lukumaaraa(1)
+        except ValueError:
+            self.__cart.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
         pass

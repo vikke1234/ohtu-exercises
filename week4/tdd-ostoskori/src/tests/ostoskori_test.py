@@ -28,7 +28,7 @@ class TestOstoskori(unittest.TestCase):
     def test_add_same_item_twice(self):
         self.cart.lisaa_tuote(self.item)
         self.cart.lisaa_tuote(self.item)
-        self.assertEqual(len(self.cart), 2)
+        self.assertEqual(len(self.cart), 1)
 
     def test_after_one_add_the_cart_contains_one_purchase(self):
         self.cart.lisaa_tuote(self.item)
