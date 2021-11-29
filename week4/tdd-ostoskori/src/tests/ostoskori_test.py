@@ -33,3 +33,9 @@ class TestOstoskori(unittest.TestCase):
     def test_after_one_add_the_cart_contains_one_purchase(self):
         self.cart.lisaa_tuote(self.item)
         self.assertEqual(len(self.cart.ostokset()), 1)
+
+    def test_name_is_correct_after_adding_single_item(self):
+        self.cart.lisaa_tuote(self.item)
+        item = self.cart.ostokset()[0]
+
+        self.assertEqual(item.tuotteen_nimi(), "test")
