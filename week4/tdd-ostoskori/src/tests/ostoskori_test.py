@@ -58,3 +58,11 @@ class TestOstoskori(unittest.TestCase):
 
         self.cart.poista_tuote(self.milk)
         self.assertEqual(len(self.cart), 1)
+
+    def test_removing_item_with_two_same_items(self):
+        self.cart.lisaa_tuote(self.item)
+        self.cart.lisaa_tuote(self.item)
+
+        self.cart.poista_tuote(self.item)
+        self.assertEqual(len(self.cart), 1)
+
