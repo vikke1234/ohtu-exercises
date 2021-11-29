@@ -9,7 +9,7 @@ class Ostoskori:
         pass
 
     def hinta(self):
-        return 0
+        return sum([x.hinta() for x in self.__cart])
 
     def lisaa_tuote(self, lisattava: Tuote):
         self.__cart.append(Ostos(lisattava))
