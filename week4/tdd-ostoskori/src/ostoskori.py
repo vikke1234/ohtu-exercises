@@ -19,7 +19,11 @@ class Ostoskori:
             self.__cart.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
-        pass
+        try:
+            self.__cart.remove(poistettava)
+
+        except:
+            pass
 
     def tyhjenna(self):
         pass
