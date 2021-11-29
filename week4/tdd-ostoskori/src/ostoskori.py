@@ -12,7 +12,7 @@ class Ostoskori:
         return 0
 
     def lisaa_tuote(self, lisattava: Tuote):
-        pass
+        self.__cart.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
         pass
@@ -23,3 +23,5 @@ class Ostoskori:
     def ostokset(self):
         pass
 
+    def __len__(self) -> int:
+        return len(self.__cart)
