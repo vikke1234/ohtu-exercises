@@ -46,4 +46,8 @@ class TestOstoskori(unittest.TestCase):
         self.assertEqual(len(self.cart.ostokset()), 2)
 
 
-
+    def test_name_is_correct_after_adding_two_items(self):
+        self.cart.lisaa_tuote(self.item)
+        items = self.cart.ostokset()
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0].tuotteen_nimi(), "test")
