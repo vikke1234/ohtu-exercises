@@ -27,7 +27,7 @@ class Ostoskori:
                 self.__cart.remove(poistettava)
 
     def tyhjenna(self):
-        pass
+        self.__cart = []
 
     def ostokset(self):
         return self.__cart.copy()

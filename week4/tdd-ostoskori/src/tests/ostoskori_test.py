@@ -71,3 +71,10 @@ class TestOstoskori(unittest.TestCase):
 
         self.cart.poista_tuote(self.item)
         self.assertEqual(len(self.cart), 0)
+
+
+    def test_clear_cart_clears_cart(self):
+        self.cart.lisaa_tuote(self.item)
+
+        self.cart.tyhjenna()
+        self.assertEqual(len(self.cart), 0)
