@@ -6,7 +6,7 @@ class Ostoskori:
         self.__cart: list[Ostos] = []
 
     def tavaroita_korissa(self):
-        pass
+        return self.__len__()
 
     def hinta(self):
         return sum([x.hinta() for x in self.__cart])
