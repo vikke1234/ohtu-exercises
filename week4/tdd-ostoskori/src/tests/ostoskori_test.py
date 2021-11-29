@@ -66,3 +66,8 @@ class TestOstoskori(unittest.TestCase):
         self.cart.poista_tuote(self.item)
         self.assertEqual(len(self.cart), 1)
 
+    def test_removing_only_item_clears_cart(self):
+        self.cart.lisaa_tuote(self.item)
+
+        self.cart.poista_tuote(self.item)
+        self.assertEqual(len(self.cart), 0)
