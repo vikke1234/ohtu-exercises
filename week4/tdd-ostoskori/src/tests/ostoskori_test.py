@@ -1,5 +1,4 @@
 import unittest
-from ostos import Ostos
 from ostoskori import Ostoskori
 from tuote import Tuote
 
@@ -25,3 +24,10 @@ class TestOstoskori(unittest.TestCase):
         self.cart.lisaa_tuote(self.item)
         self.cart.lisaa_tuote(self.milk)
         self.assertEqual(self.cart.hinta(), 6)
+
+    def test_add_same_item_twice(self):
+        self.cart.lisaa_tuote(self.item)
+        self.cart.lisaa_tuote(self.item)
+        self.assertEqual(len(self.cart), 2)
+
+
