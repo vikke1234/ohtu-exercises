@@ -21,7 +21,7 @@ class Ostoskori:
         pass
 
     def ostokset(self):
-        pass
+        return self.__cart.copy()
 
     def __len__(self) -> int:
         return len(self.__cart)

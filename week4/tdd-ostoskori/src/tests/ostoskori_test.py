@@ -30,4 +30,6 @@ class TestOstoskori(unittest.TestCase):
         self.cart.lisaa_tuote(self.item)
         self.assertEqual(len(self.cart), 2)
 
-
+    def test_after_one_add_the_cart_contains_one_purchase(self):
+        self.cart.lisaa_tuote(self.item)
+        self.assertEqual(len(self.cart.ostokset()), 1)
