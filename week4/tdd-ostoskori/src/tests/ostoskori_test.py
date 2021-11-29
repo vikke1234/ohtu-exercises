@@ -39,3 +39,11 @@ class TestOstoskori(unittest.TestCase):
         item = self.cart.ostokset()[0]
 
         self.assertEqual(item.tuotteen_nimi(), "test")
+
+    def test_cart_contains_two_items_after_adding_two_different_ones(self):
+        self.cart.lisaa_tuote(self.item)
+        self.cart.lisaa_tuote(self.milk)
+        self.assertEqual(len(self.cart.ostokset()), 2)
+
+
+
