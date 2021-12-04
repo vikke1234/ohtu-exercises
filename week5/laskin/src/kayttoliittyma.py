@@ -1,18 +1,18 @@
 from enum import Enum
 from tkinter import ttk, constants, StringVar
 
-from sovelluslogiikka import Sovelluslogiikka
+from sovelluslogiikka import ApplicationLogic
 
 
 class Command(Enum):
     SUM = 1
     DIFF = 2
     ZERO = 3
-    CLEAR = 4
+    UNDO = 4
 
 
 class UserInterface:
-    def __init__(self, sovellus: Sovelluslogiikka, root):
+    def __init__(self, sovellus: ApplicationLogic, root):
         self._application = sovellus
         self._root = root
 
@@ -46,7 +46,7 @@ class UserInterface:
             master=self._root,
             text="Kumoa",
             state=constants.DISABLED,
-            command=lambda: self._run_command(Command.CLEAR)
+            command=lambda: self._run_command(Command.UNDO)
         )
 
         tulos_teksti.grid(columnspan=4)
@@ -58,7 +58,7 @@ class UserInterface:
 
     def _run_command(self, command):
         value = 0
-        commands = {Command.SUM: self._application.add, Command.DIFF: self._application.subtract, Command.CLEAR: self._application.zero, Command.ZERO: self._application.zero}
+        commands = {Command.SUM: self._application.add, Command.DIFF: self._application.subtract, Command.UNDO: self._application.undo, Command.ZERO: self._application.zero}
         try:
             value = int(self._input_field.get())
         except Exception:

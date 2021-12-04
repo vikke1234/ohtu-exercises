@@ -1,10 +1,10 @@
 from tkinter import Tk
 from kayttoliittyma import UserInterface
-from sovelluslogiikka import Sovelluslogiikka
+from sovelluslogiikka import ApplicationLogic
 
 
 def main():
-    sovellus = Sovelluslogiikka()
+    sovellus = ApplicationLogic()
 
     window = Tk()
     window.title("Laskin")
