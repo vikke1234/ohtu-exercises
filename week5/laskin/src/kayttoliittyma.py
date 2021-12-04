@@ -18,7 +18,7 @@ class UserInterface:
 
     def start(self):
         self._output_var = StringVar()
-        self._output_var.set(self._application.tulos)
+        self._output_var.set(self._application.value)
         self._input_field = ttk.Entry(master=self._root)
 
         tulos_teksti = ttk.Label(textvariable=self._output_var)
@@ -58,27 +58,20 @@ class UserInterface:
 
     def _run_command(self, command):
         value = 0
-
+        commands = {Command.SUM: self._application.add, Command.DIFF: self._application.subtract, Command.CLEAR: self._application.zero, Command.ZERO: self._application.zero}
         try:
             value = int(self._input_field.get())
         except Exception:
             pass
 
-        if command == Command.SUM:
-            self._application.add(value)
-        elif command == Command.DIFF:
-            self._application.subtract(value)
-        elif command == Command.ZERO:
-            self._application.clear()
-        elif command == Command.CLEAR:
-            pass
+        commands[command](value)
 
         self._clear_button["state"] = constants.NORMAL
 
-        if self._application.tulos == 0:
+        if self._application.value == 0:
             self._zero_button["state"] = constants.DISABLED
         else:
             self._zero_button["state"] = constants.NORMAL
 
         self._input_field.delete(0, constants.END)
-        self._output_var.set(self._application.tulos)
+        self._output_var.set(self._application.value)

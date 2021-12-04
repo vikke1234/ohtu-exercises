@@ -1,15 +1,16 @@
 class Sovelluslogiikka:
     def __init__(self, tulos=0):
-        self.tulos = tulos
+        self.value: int = tulos
 
     def subtract(self, arvo):
-        self.tulos = self.tulos - arvo
+        self.value = self.value - arvo
 
     def add(self, arvo):
-        self.tulos = self.tulos + arvo
+        self.value = self.value + arvo
 
-    def clear(self):
-        self.tulos = 0
+    def zero(self, _ = 0):
+        # _ is to simply all functions have equal arguments
+        self.value = 0
 
-    def aseta_arvo(self, arvo):
-        self.tulos = arvo
+    def set_value(self, value):
+        self.value = value
