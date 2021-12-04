@@ -10,8 +10,19 @@ class TennisGame:
             self.home_score = self.home_score + 1
         else:
             self.away_score = self.away_score + 1
-    def __check_equal(self):
-        pass
+
+    def __check_deuce(self):
+        minus_result = self.home_score - self. away_score
+
+        if minus_result == 1:
+            return "Advantage player1"
+        elif minus_result == -1:
+            return "Advantage player2"
+        elif minus_result >= 2:
+            return "Win for player1"
+        else:
+            return "Win for player2"
+
 
     def get_score(self):
         score = ""
@@ -25,16 +36,9 @@ class TennisGame:
                 score = "Deuce"
 
         elif self.home_score >= 4 or self.away_score >= 4:
-            minus_result = self.home_score - self. away_score
+            score = self.__check_deuce()
 
-            if minus_result == 1:
-                score = "Advantage player1"
-            elif minus_result == -1:
-                score = "Advantage player2"
-            elif minus_result >= 2:
-                score = "Win for player1"
-            else:
-                score = "Win for player2"
         else:
             score = "{}-{}".format(points_to_str[self.home_score], points_to_str[self.away_score])
+
         return score
