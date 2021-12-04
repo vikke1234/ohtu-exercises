@@ -1,82 +1,84 @@
 from enum import Enum
 from tkinter import ttk, constants, StringVar
 
-
-class Komento(Enum):
-    SUMMA = 1
-    EROTUS = 2
-    NOLLAUS = 3
-    KUMOA = 4
+from sovelluslogiikka import Sovelluslogiikka
 
 
-class Kayttoliittyma:
-    def __init__(self, sovellus, root):
-        self._sovellus = sovellus
+class Command(Enum):
+    SUM = 1
+    DIFF = 2
+    ZERO = 3
+    CLEAR = 4
+
+
+class UserInterface:
+    def __init__(self, sovellus: Sovelluslogiikka, root):
+        self._application = sovellus
         self._root = root
 
-    def kaynnista(self):
-        self._tulos_var = StringVar()
-        self._tulos_var.set(self._sovellus.tulos)
-        self._syote_kentta = ttk.Entry(master=self._root)
+    def start(self):
+        self._output_var = StringVar()
+        self._output_var.set(self._application.tulos)
+        self._input_field = ttk.Entry(master=self._root)
 
-        tulos_teksti = ttk.Label(textvariable=self._tulos_var)
+        tulos_teksti = ttk.Label(textvariable=self._output_var)
 
-        summa_painike = ttk.Button(
+        addition_button = ttk.Button(
             master=self._root,
             text="Summa",
-            command=lambda: self._suorita_komento(Komento.SUMMA)
+            command=lambda: self._run_command(Command.SUM)
         )
 
-        erotus_painike = ttk.Button(
+        subtract_button = ttk.Button(
             master=self._root,
             text="Erotus",
-            command=lambda: self._suorita_komento(Komento.EROTUS)
+            command=lambda: self._run_command(Command.DIFF)
         )
 
-        self._nollaus_painike = ttk.Button(
+        self._zero_button = ttk.Button(
             master=self._root,
             text="Nollaus",
             state=constants.DISABLED,
-            command=lambda: self._suorita_komento(Komento.NOLLAUS)
+            command=lambda: self._run_command(Command.ZERO)
         )
 
-        self._kumoa_painike = ttk.Button(
+        self._clear_button = ttk.Button(
             master=self._root,
             text="Kumoa",
             state=constants.DISABLED,
-            command=lambda: self._suorita_komento(Komento.KUMOA)
+            command=lambda: self._run_command(Command.CLEAR)
         )
 
         tulos_teksti.grid(columnspan=4)
-        self._syote_kentta.grid(columnspan=4, sticky=(constants.E, constants.W))
-        summa_painike.grid(row=2, column=0)
-        erotus_painike.grid(row=2, column=1)
-        self._nollaus_painike.grid(row=2, column=2)
-        self._kumoa_painike.grid(row=2, column=3)
+        self._input_field.grid(columnspan=4, sticky=(constants.E, constants.W))
+        addition_button.grid(row=2, column=0)
+        subtract_button.grid(row=2, column=1)
+        self._zero_button.grid(row=2, column=2)
+        self._clear_button.grid(row=2, column=3)
 
-    def _suorita_komento(self, komento):
-        arvo = 0
+    def _run_command(self, command):
+        value = 0
 
         try:
-            arvo = int(self._syote_kentta.get())
+            value = int(self._input_field.get())
         except Exception:
             pass
 
-        if komento == Komento.SUMMA:
-            self._sovellus.plus(arvo)
-        elif komento == Komento.EROTUS:
-            self._sovellus.miinus(arvo)
-        elif komento == Komento.NOLLAUS:
-            self._sovellus.nollaa()
-        elif komento == Komento.KUMOA:
+        if command == Command.SUM:
+            self._application.add(value)
+        elif command == Command.DIFF:
+            self._application.subtract(value)
+        elif command == Command.ZERO:
+            self._application.clear()
+        elif command == Command.CLEAR:
             pass
 
-        self._kumoa_painike["state"] = constants.NORMAL
+        self._clear_button["state"] = constants.NORMAL
 
-        if self._sovellus.tulos == 0:
-            self._nollaus_painike["state"] = constants.DISABLED
+        if self._application.tulos == 0:
+            self._zero_button["state"] = constants.DISABLED
         else:
-            self._nollaus_painike["state"] = constants.NORMAL
+            self._zero_button["state"] = constants.NORMAL
 
-        self._syote_kentta.delete(0, constants.END)
-        self._tulos_var.set(self._sovellus.tulos)
+        self._input_field.delete(0, constants.END)
+        self._output_var.set(self._application.tulos)
