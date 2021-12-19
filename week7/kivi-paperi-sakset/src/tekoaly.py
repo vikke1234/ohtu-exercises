@@ -19,10 +19,9 @@ class TekoalyParannettu:
         k = 0
         p = 0
         s = 0
-
-        for move in iter(self._memory):
-            if previous_move == move:
-                next_move = next(move)
+        for i in range(len(self._memory) - 1):
+            if previous_move == self._memory[i]:
+                next_move = self._memory[i + 1]
 
                 if next_move == "k":
                     k = k + 1

@@ -1,36 +1,27 @@
 
 # Luokka pitää kirjaa ensimmäisen ja toisen pelaajan pisteistä sekä tasapelien määrästä.
-class Tuomari:
+class Judge:
     def __init__(self):
-        self.ekan_pisteet = 0
-        self.tokan_pisteet = 0
+        self.player1_points = 0
+        self.player2_points = 0
         self.tasapelit = 0
 
-    def kirjaa_siirto(self, ekan_siirto, tokan_siirto):
-        if self._tasapeli(ekan_siirto, tokan_siirto):
-            self.tasapelit = self.tasapelit + 1
-        elif self._eka_voittaa(ekan_siirto, tokan_siirto):
-            self.ekan_pisteet = self.ekan_pisteet + 1
+    def log_move(self, ekan_siirto, tokan_siirto):
+        if self._draw(ekan_siirto, tokan_siirto):
+            self.tasapelit += 1
+        elif self._player1_win(ekan_siirto, tokan_siirto):
+            self.player1_points += 1
         else:
-            self.tokan_pisteet = self.tokan_pisteet + 1
+            self.player2_points += 1
 
     def __str__(self):
-        return f"Pelitilanne: {self.ekan_pisteet} - {self.tokan_pisteet}\nTasapelit: {self.tasapelit}"
+        return f"Pelitilanne: {self.player1_points} - {self.player2_points}\nTasapelit: {self.tasapelit}"
 
     # sisäinen metodi, jolla tarkastetaan tuliko tasapeli
-    def _tasapeli(self, eka, toka):
-        if eka == toka:
-            return True
-
-        return False
+    def _draw(self, player1, player2):
+        return player1 == player2
 
     # sisäinen metodi joka tarkastaa voittaako eka pelaaja tokan
-    def _eka_voittaa(self, eka, toka):
-        if eka == "k" and toka == "s":
-            return True
-        elif eka == "s" and toka == "p":
-            return True
-        elif eka == "p" and toka == "k":
-            return True
-
-        return False
+    def _player1_win(self, player1, player2):
+        counters = {"k": "s", "s": "p", "p": "k"}
+        return counters[player1] == player2
